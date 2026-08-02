@@ -1,5 +1,5 @@
 # physics-engine
-Make a simple interface to model a ball of mass m droping from height h.
+Make a simple interface to model a ball of mass m droping from height h in c++20.
 Inputs:
 - Mass: m
 - Height: h
