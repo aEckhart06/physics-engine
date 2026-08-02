@@ -4,6 +4,7 @@ Inputs:
 - Mass: m
 - Height: h
 Outputs:
+- Duration: t
 - Position: y
 - Velocity: v
 - Acceleration: a
