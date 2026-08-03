@@ -18,41 +18,54 @@ int main() {
     Kinetic Energy: K
     Potential Energy: U
     */
-    float t;
     float m;
-    float h;
-    float y;
-    float y_v;
-    float y_a;
-    float y_p;
-    float K;
-    float U;
-
-    // float t;
-    float dt = 0.001;
-    std::chrono::seconds s(3);
+    float t_max;
 
     std::cout << "Mass of object (kg): ";
     std::cin >> m;
 
-    std::cout << "Height to drop from (m): ";
-    std::cin >> h;
+    std::cout << "Max duration (s): ";
+    std::cin >> t_max;
 
+    // std::cout << "Height to drop from (m): ";
+    // std::cin >> h;
+
+
+    // INITIALIZE
+    float g = 9.81;       // acceleration due to gravity
+    float v = 0.0;        // initial velocity
+    // float h_f = 0.0;   // final height
+    float t = 0.0;
+    float dt = 0.0;
+    float p = 0.0;
+    float K = 0.0;
+    float U = 0.0;
     auto program_start = std::chrono::high_resolution_clock::now();
+    while (t < t_max) {
+        auto start = std::chrono::high_resolution_clock::now();
+    
+        v = v + g*dt;                   // Velocity
+        p = m*v;                        // Momentum
+        K = (m*std::pow(v, 2)) / 2 ;    // Kinetic Energy
+        U = 0;                          // Potential Energy
+
+        
+        std::cout 
+        << "\rDuration: " << t << " [s] " 
+        << "Velocity: " << v << " [m/s] " 
+        << "Acceleration: " << g << " [m/s^2] " 
+        << "Momentum: " << p << " [(kg)(m/s)] "
+        << "KE: " << K << " [J] "
+        << "PE: " << U << " [J] "
+        << std::flush;
 
 
-    auto start = std::chrono::high_resolution_clock::now();
-    auto end = std::chrono::high_resolution_clock::now();
-    // Timesteped operation
-    do {
-        std::cout << "\rDuration: " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << std::flush;
-        end = std::chrono::high_resolution_clock::now();
-    } while (std::chrono::duration_cast<std::chrono::microseconds>(end-start).count() < 3000000); // 3 seconds
-    
-    
-    
+        auto end = std::chrono::high_resolution_clock::now();
+        dt = (float) std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() / 1000;
+        t += dt;
+    }
     auto program_end = std::chrono::high_resolution_clock::now();
     auto diff = std::chrono::duration_cast<std::chrono::microseconds>(program_end-program_start).count();
-    std::cout << "Program time elapsed: " << diff << std::endl;
+    std::cout << "Total program time elapsed: " << diff << std::endl;
 
 }
