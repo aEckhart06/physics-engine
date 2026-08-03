@@ -1,13 +1,6 @@
 # physics-engine
-Make a simple interface to model a ball of mass m droping from height h in c++20.
-Inputs:
-- Mass: m
-- Height: h
-Outputs:
-- Duration: t
-- Position: y
-- Velocity: v
-- Acceleration: a
-- Momentum: p
-- Kinetic Energy: K
-- Potential Energy: U
+## TODO:
+From the existing code, generalize by creating classes.
+- Create a sim_application class. This is the environment for the simulation. 
+- Create a demo class. This is the parent class for all demo experiments that can be used in the sim_application.
+- Add a measurement for Force.
