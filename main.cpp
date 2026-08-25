@@ -1,52 +1,58 @@
-#include "raylib-cpp.hpp"
-#include "objects.h"
+// #include "raylib-cpp.hpp"
+#include "headers/objects.h"
 #include "raylib.h"
 #include <vector>
 #include <iostream>
 
 int main() {
-    int screenWidth = 800;
-    int screenHeight = 450;
+    
 
-    // raylib::Window window(screenWidth, screenHeight, "raylib-cpp - basic window");
+    Vector2 dims_meters = {16, 9}; // 16m X 9m
+    float m = 50; // Scale factor: Number of pixes for 1 meter
+    int screenWidth = dims_meters.x*m;
+    int screenHeight = dims_meters.y*m;
+
     InitWindow(screenWidth, screenHeight, "test");
     SetTargetFPS(60);
 
-    Vector2 pos = { 400.0f, 300.0f };
-    Vector2 vel = { 200.0f, 100.0f }; // Pixels per second
-    Vector2 size = {20,20}; 
+    Vector2 top = {float(screenWidth/2), float(screenHeight/2)};
+    Vector2 left = {top.x-0.5, top.y+1.732};
+    Vector2 right = {top.x+0.5, top.y+1.732};
 
-    while (!WindowShouldClose())
-    {
-        // INPUT KEYS
-        if (IsKeyPressed(KEY_UP)) { if (vel.y > 0) {vel.y=vel.y*-1;}}
-        if (IsKeyPressed(KEY_DOWN)) { if (vel.y < 0) {vel.y=vel.y*-1;}}
-        if (IsKeyPressed(KEY_LEFT)) { if (vel.x > 0) {vel.x=vel.x*-1;}}
-        if (IsKeyPressed(KEY_RIGHT)) { if (vel.x < 0) {vel.x=vel.x*-1;}}
-        
+    Vector2 center = {float(screenWidth/2), float(screenHeight/2)};
+    int sides = 3;
+    int radius = 30;
+    float rot = -90.0;
+
+    Vector2 pos = center;
+    Vector2 vel = {0.0f*m,0.0f*m};
+    Vector2 acc = {0.0f*m,9.81f*m};
+    float total_t = 0;
+
+    while (!WindowShouldClose()) {
+
         float dt = GetFrameTime();
-        
 
-        pos.x += vel.x * dt;
-        pos.y += vel.y * dt;
-        
+        vel.x = vel.x + acc.x*dt;
+        vel.y = vel.y + acc.y*dt;
+
+        pos.x = pos.x + vel.x*dt;
+        pos.y = pos.y + vel.y*dt;
+
+        total_t+= dt;
+        if (total_t >=1.0) {
+            std::cout << vel.y << std::endl;
+        }
+
         BeginDrawing();
-
         ClearBackground(RAYWHITE);
-
-        if (pos.y + size.y >= screenHeight || pos.y <= 0) {
-            vel.y = vel.y * -1;
-        }
-        if (pos.x + size.x >= screenWidth || pos.x <= 0) {
-            vel.x = vel.x *= -1;
-        }
-
-        DrawRectangleV(pos, size, RED);
-        
-        // Object methods.
+        // DrawPoly(pos, sides, radius, rot, RED); 
+        DrawTriangle(top, left, right, RED); 
         EndDrawing();
     }
     CloseWindow();
+    
+
 
     // UnloadTexture() and CloseWindow() are called automatically.
 

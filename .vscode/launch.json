@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug physics-engine",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/main",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "externalConsole": false,
+            "sourceLanguages": ["cpp"],
+            "preLaunchTask": "CMake: build"
+        }
+    ]
+}

@@ -3,6 +3,10 @@ project(physics-engine)
 
 set(CMAKE_CXX_STANDARD 20)  # raylib-cpp expects C++17+
 
+# Enable debug symbols for debugging
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+
 find_package(raylib QUIET)
 if (NOT raylib_FOUND)
     include(FetchContent)
@@ -26,6 +30,9 @@ endif()
 
 add_executable(main 
 main.cpp
-objects.cpp
+experiments/objects.cpp
+experiments/bouncing_square.cpp
 )
 target_link_libraries(main PRIVATE raylib raylib_cpp)
+
+
