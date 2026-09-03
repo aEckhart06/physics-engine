@@ -6,36 +6,35 @@ using namespace std;
 
 class RigidBody {
 public:
-    int width;
-    int height;
+    float width;
+    float height;
 
-    // /* Constant quantities */
+    /* Constant quantities */
     float mass;                                /* mass M */
-    vector<vector<float>> Ibody;         /* Ibody */
-    vector<vector<float>> Ibodyinv;      /* I−1 body (inverse of Ibody) */
+    float I;         /* The pre-computed moment of inertia of the body */
     
     /* State variables */
-    vector<float> pos;                    /* x(t) */
-    vector<vector<float>> R; /* R(t) */
-    vector<float> P;                      /* P(t) */
-    vector<float> L;                      /* L(t) */
+    vector<float> pos;                    /* Position vector (about COM) */
+    vector<vector<float>> R;              /* Rotation matrix {{cosT, -sinT}, {sinT, cosT}} */
+    vector<float> P;                      /* p=mv Linear momentum vector (about COM) */
+    float L;                      /* L=Iw Angular momentum vector (about COM) */
 
     /* Derived quantities (auxiliary variables) */
-    vector<vector<float>> Iinv; /* I−1(t) */
-    vector<float> v; /* v(t) */
-    float omega; /* ω(t) */
+    vector<float> v;        /* Linear velocity */
+    float omega;            /* Angular velocity */
 
-    // /* Computed quantities */
-    vector<float> force; /* F(t) */
-    vector<float> torque; /* τ(t) */
+    /* Computed quantities */
+    vector<float> force; /* F(t) the net force about the COM */
+    vector<float> torque; /* τ(t) the net torque about the COM */
 
 
-    RigidBody(double m, int w, int h, vector<float> x,
-        vector<vector<float>> R, vector<float> P, vector<float> L,
-        vector<vector<float>> Ibody, vector<vector<float>> Ibodyinv);
+    RigidBody(int w, int h, float mass, float I, vector<float> x,
+        vector<vector<float>> R);
 
     // tuple<Vector2, Vector2, Vector2> get_rel_state();
-
+    void draw();
+    void compute_net_force(float dt);
+    void update_state(float dt);
     // void set_rel_state(Vector2 position, Vector2 velocity, Vector2 acceleration);
 };
 
@@ -65,4 +64,4 @@ vector<vector<float>> transpose(vector<vector<float>> matrix);
 
 void arr_to_bodies(double arr[], vector<RigidBody> bodies, int STATE_SIZE);
 
-void bodies_to_arr(double arr[], vector<RigidBody> bodies, int STATE_SIZE = 10);
+void bodies_to_arr(double arr[], vector<RigidBody> bodies, int STATE_SIZE);

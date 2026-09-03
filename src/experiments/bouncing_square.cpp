@@ -1,8 +1,8 @@
-#include "raylib-cpp.hpp"
+// #include "raylib-cpp.hpp"
 #include "raylib.h"
 #include <vector>
 
-#include "../headers/bouncing_square.h"
+#include "include/bouncing_square.h"
 
 void bouncing_ball(int screenWidth, int screenHeight) {
 
