@@ -1,5 +1,6 @@
 // #include "raylib-cpp.hpp"
 #include "../include/objects.h"
+#include "../include/engine.h"
 #include "raylib.h"
 #include <vector>
 #include <iostream>
@@ -21,21 +22,32 @@ int main() {
     // RigidBody rect2 = RigidBody(40, 10, mass, mom_I, {(screenWidth+75)/2, (screenHeight-100)/2}, {{1,0},{0,1}});
 
     // Global list of rigid bodies
-    vector<RigidBody> bodies = {rect};
+    // vector<RigidBody> bodies = {rect};
     int rot = 0;
+
+    vector<Body> bodies = {
+        Body(Vect2(screenWidth/2, screenHeight/2), Vect2(0,0), Vect2(0,0), 5),
+        Body(Vect2(screenWidth/4, screenHeight/4), Vect2(0,0), Vect2(0,0), 5)
+    };
+    World phys_world = World(0, bodies);
 
     while (!WindowShouldClose()) {
 
         float dt = GetFrameTime();
-        for (RigidBody& rb : bodies) {
-            rb.compute_net_force(dt);
-            rb.update_state(dt);
-        }
+        // for (RigidBody& rb : bodies) {
+        //     rb.compute_net_force(dt);
+        //     rb.update_state(dt);
+        // }
+        phys_world.update_state(dt);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        for (RigidBody& rb : bodies) {
-            rb.draw();
+        // for (RigidBody& rb : bodies) {
+        //     rb.draw();
+        // }
+        for (Body& b : bodies) {
+            // b.draw();
+            DrawRectangle(b.pos.x, b.pos.y, 50, 50, RED); 
         }
         
         EndDrawing();

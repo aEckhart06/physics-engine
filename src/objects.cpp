@@ -27,9 +27,7 @@ using namespace std;
 
 // Body Object
 // All bodies are rectangles for now
-RigidBody::RigidBody(int w, int h, float mass, float I, vector<float> x,
-        vector<vector<float>> R){
-    
+RigidBody::RigidBody(int w, int h, float mass, float I, vector<float> x, vector<vector<float>> R){
     width = w;
     height = h;
     this->mass = mass;
@@ -154,6 +152,8 @@ void dydt(double t, double y[], vector<RigidBody> bodies, double ydot[], int STA
         // Compute the force and torque HERE
     }
 }
+
+
 
 void RigidBody::draw() {
     // rotation matrix affects r and rot

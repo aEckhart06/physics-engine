@@ -15,6 +15,8 @@ FetchContent_MakeAvailable(raylib)
 add_executable(physics-engine 
     src/main.cpp
     src/objects.cpp
+    src/engine.cpp
+    include/engine.h
 )
 
 target_link_libraries(physics-engine raylib)
